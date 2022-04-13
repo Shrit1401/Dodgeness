@@ -12,6 +12,8 @@ namespace Managers
         public GameObject skinWay, backgroundWay;
 
         public bool isSkinActive, isBackgroundActive;
+
+        public GameObject redPanel, greenPanel;
     }
 
     [Serializable]
@@ -29,10 +31,26 @@ namespace Managers
         public bool isUnlocked;
     }
     
+    [Serializable]
+    public class SkinShop
+    {
+        public Skin skin;
+        public Image image;
+        public Text amount;
+        public Text name;
+        public Text currentMoney;
+        public int skinSelectedOption;
+        public int amountValue;
+        public Button select;
+        public bool canBuy;
+        public bool isUnlocked;
+    }
+    
     public class ShopManager : MonoBehaviour    
     {
         public ShopUISetting shopUISetting;
         public BackgroundShop background;
+        public SkinShop skin;
 
 
         private void Start()
@@ -44,16 +62,29 @@ namespace Managers
 
             else
             {
-                Load();
+                BackgroundLoad();
             }
             
             UpdateBackground(background.backgroundSelectedOptions);
+            
+            if (!PlayerPrefs.HasKey("skinOptions"))
+            {
+                skin.skinSelectedOption = 0;
+            }
+
+            else
+            {
+                SkinLoad();
+            }
+            
+            UpdateSkin(skin.skinSelectedOption);
         }
 
         private void Update()
         {
             background.currentMoney.text = "$" + PlayerPrefs.GetInt("coinNumber");
-            
+            skin.currentMoney.text = "$" + PlayerPrefs.GetInt("coinNumber");
+
             if (shopUISetting.isSkinActive)
             {
                 shopUISetting.backgroundBtn.GetComponent<CanvasGroup>().alpha = 0.5f;
@@ -76,7 +107,7 @@ namespace Managers
             shopUISetting.isSkinActive = true;
         }
         
-        public void ButtonBtnClicked()
+        public void BackgroundBtnClicked()
         {
             if (!shopUISetting.isSkinActive) return;
             shopUISetting.skinWay.SetActive(false);
@@ -86,9 +117,9 @@ namespace Managers
         }
         
         
-        //shop
+        //shop Background
 
-        public void NextOption()
+        public void BackgroundNextOption()
         {
             background.backgroundSelectedOptions++;
 
@@ -99,7 +130,7 @@ namespace Managers
             UpdateBackground(background.backgroundSelectedOptions);
         }
         
-        public void BackOption()
+        public void BackgroundBackOption()
         {
             background.backgroundSelectedOptions--;
 
@@ -135,20 +166,19 @@ namespace Managers
             background.canBuy = PlayerPrefs.GetInt("coinNumber") >= storedBackground.amount;
             background.isUnlocked = storedBackground.isUnlocked;
 
-            background.@select.interactable = background.isUnlocked || background.canBuy;
         }
 
-        public void SelectOption()
+        public void BackgroundSelectOption()
         {
-            Save();
+            BackgroundSave();
         }
         
-        private void Load()
+        private void BackgroundLoad()
         {
             background.backgroundSelectedOptions = PlayerPrefs.GetInt("backgroundOption");
         }
 
-        private void Save()
+        private void BackgroundSave()
         {
             if (!background.isUnlocked)
             {
@@ -162,18 +192,113 @@ namespace Managers
                     background.isUnlocked = true;
                     storedBackground.isUnlocked = background.isUnlocked;
                     PlayerPrefs.SetInt("backgroundOption", background.backgroundSelectedOptions);
+                    shopUISetting.greenPanel.GetComponent<Animator>().SetTrigger($"open");
                 }
 
                 else
                 {
-                    print("not enough money");
+                    shopUISetting.redPanel.GetComponent<Animator>().SetTrigger($"open");
                 }
             }
 
             else
             {
+                shopUISetting.greenPanel.GetComponent<Animator>().SetTrigger($"open");
                 PlayerPrefs.SetInt("backgroundOption", background.backgroundSelectedOptions);   
             }
         }
+        
+        // shop Skin
+        
+        public void SkinNextOption()
+        {
+            skin.skinSelectedOption++;
+
+            if (skin.skinSelectedOption >= skin.skin.SkinCount)
+            {
+                skin.skinSelectedOption = 0;
+            }
+            UpdateSkin(skin.skinSelectedOption);
+        }
+        
+        public void SkinBackOption()
+        {
+            skin.skinSelectedOption--;
+
+            if (skin.skinSelectedOption < 0)
+            {
+                skin.skinSelectedOption = skin.skin.SkinCount - 1;
+            }
+            UpdateSkin(skin.skinSelectedOption);
+        }
+        
+        private void UpdateSkin(int selectedOptions)
+        {
+
+            var storedSkin =
+                skin.skin.GetSkin(selectedOptions);
+            
+            skin.image.sprite = storedSkin.playerSprite;
+
+            skin.amountValue = storedSkin.amount;
+            if (storedSkin.amount == 0)
+            {
+                skin.amount.text = "free";
+            }
+
+            else
+            {
+                skin.amount.text = "$" + storedSkin.amount;
+
+            }
+            skin.name.text = storedSkin.name;
+            skin.amountValue = storedSkin.amount;
+
+            skin.canBuy = PlayerPrefs.GetInt("coinNumber") >= storedSkin.amount;
+            skin.isUnlocked = storedSkin.isUnlocked;
+
+        }
+        
+        
+        public void SkinSelectOption()
+        {
+            SkinSave();
+        }
+        
+        private void SkinLoad()
+        {
+            skin.skinSelectedOption = PlayerPrefs.GetInt("skinOptions");
+        }
+        
+        private void SkinSave()
+        {
+            if (!skin.isUnlocked)
+            {
+                if (skin.canBuy)
+                {
+                    var rnCoin = PlayerPrefs.GetInt("coinNumber");
+                    var coinMoney = rnCoin - skin.amountValue;
+                    PlayerPrefs.SetInt("coinNumber", coinMoney);
+                    var storedSkin =
+                        skin.skin.GetSkin(skin.skinSelectedOption);
+                    skin.isUnlocked = true;
+                    storedSkin.isUnlocked = skin.isUnlocked;
+                    PlayerPrefs.SetInt("skinOptions", skin.skinSelectedOption);
+                    shopUISetting.greenPanel.GetComponent<Animator>().SetTrigger($"open");
+                }
+
+                else
+                {
+                    shopUISetting.redPanel.GetComponent<Animator>().SetTrigger($"open");
+                }
+            }
+
+            else
+            {
+                shopUISetting.greenPanel.GetComponent<Animator>().SetTrigger($"open");
+                PlayerPrefs.SetInt("skinOptions", skin.skinSelectedOption);   
+            }
+        }
+        
     }
 }

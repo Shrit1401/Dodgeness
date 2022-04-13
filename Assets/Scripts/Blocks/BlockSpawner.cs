@@ -9,19 +9,17 @@ namespace Blocks
     {
         public Transform[] spawnPoints;
         public GameObject redPrefab;
-        public GameObject coinPrefab;
+        public GameObject pointPrefab;
 
         public float timeBetweenSpawn = 1f;
         private float _timeToSpawn = 2f;
 
         public bool disableSpawn;
-        
         private void Update()
         {
             if (!(Time.time >= _timeToSpawn) || GameManager.Instance.gameOver.isGameOver || disableSpawn) return;
             SpawnBlocks();
             _timeToSpawn = Time.time + timeBetweenSpawn;
-
         }
 
         private void SpawnBlocks()
@@ -37,8 +35,7 @@ namespace Blocks
 
                 if (randomIndex == i)
                 {
-                    Instantiate(coinPrefab, spawnPoints[i].position, Quaternion.identity);
- 
+                    Instantiate(pointPrefab, spawnPoints[i].position, Quaternion.identity);
                 }
             }
         }

@@ -662,6 +662,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 8384237123217911829, guid: b9d8f3d6a260e124da8b7453103aab98, type: 3}
+      propertyPath: m_FlipY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8384237123217911829, guid: b9d8f3d6a260e124da8b7453103aab98, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9d8f3d6a260e124da8b7453103aab98, type: 3}
 --- !u!20 &265831138 stripped
@@ -824,8 +832,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.8882755, y: 7.6968994}
-  m_SizeDelta: {x: 236.39, y: 142.25}
+  m_AnchoredPosition: {x: -1.8883, y: 7.6968994}
+  m_SizeDelta: {x: 329.5518, y: 198.311}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &509217432
 MonoBehaviour:
@@ -849,7 +857,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 652f7165b7c30ab46af6c4aad90a639b, type: 2}
-    m_FontSize: 72
+    m_FontSize: 95
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
@@ -860,9 +868,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Block:
+  m_Text: 'Block
 
-    Doge It'
+    Zone'
 --- !u!222 &509217433
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1228,7 +1236,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 923702448}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 208058313}
+        m_TargetAssemblyTypeName: Managers.LevelManager, Assembly-CSharp
+        m_MethodName: LoadLevel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Settings
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &923702448
 MonoBehaviour:
   m_ObjectHideFlags: 0

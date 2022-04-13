@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93d96619177593f4494833f40bcb70a1, type: 3}
+  m_Name: Skin
+  m_EditorClassIdentifier: 
+  skins:
+  - name: Default
+    playerSprite: {fileID: 21300000, guid: fccafb5124ef2674b95ed34d3520d9ed, type: 3}
+    amount: 0
+    isUnlocked: 1
+  - name: $$$
+    playerSprite: {fileID: 21300000, guid: d08a1e65bfdd64649a29c50e55e8666f, type: 3}
+    amount: 20
+    isUnlocked: 0
+  - name: Happy Guy
+    playerSprite: {fileID: 21300000, guid: 4ee506f0de044d04797fd27b032822d4, type: 3}
+    amount: 50
+    isUnlocked: 0
+  - name: Sad One
+    playerSprite: {fileID: 21300000, guid: c0ed6ef19336ec14abb633afda68f5a8, type: 3}
+    amount: 50
+    isUnlocked: 0
+  - name: Blue Guy
+    playerSprite: {fileID: 21300000, guid: c0d30734594890d4c80dc9bf97e1d178, type: 3}
+    amount: 100
+    isUnlocked: 0
+  - name: hard cricket ball
+    playerSprite: {fileID: 21300000, guid: 8414acccf25ff994387fc524ec866211, type: 3}
+    amount: 150
+    isUnlocked: 0
+  - name: sqaure isn't intreasted
+    playerSprite: {fileID: 21300000, guid: a498202dc8d09b74888e370e389dcdfb, type: 3}
+    amount: 200
+    isUnlocked: 0

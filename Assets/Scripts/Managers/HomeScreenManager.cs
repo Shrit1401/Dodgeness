@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Managers
@@ -12,8 +13,7 @@ namespace Managers
     public class HomeScreenManager : MonoBehaviour
     {
         public BlockShifting blockShifting;
-        
-        
+
         public void ShowGameMode()
         {
             if (!blockShifting.isHome) return;

@@ -15,6 +15,8 @@ namespace Coins
         [HideInInspector]
         public int coinNumber;
 
+        public int moreCoins;
+
         private void Awake()
         {
             coinNumber = PlayerPrefs.GetInt("coinNumber");
@@ -22,6 +24,8 @@ namespace Coins
 
         private void Update()
         {
+            //remove
+            //coinNumber += moreCoins;
             if (score < 10)
             {
                 scoreText.text = "0" + score;

@@ -8,7 +8,7 @@ namespace Blocks
     {
         private void Start()
         {
-            GetComponent<Rigidbody2D>().gravityScale += Time.timeSinceLevelLoad / FindObjectOfType<GameManager>().gameOver.increaseRate;
+            GetComponent<Rigidbody2D>().gravityScale += FindObjectOfType<GameManager>().others.timeSinceLevelLoaded / FindObjectOfType<GameManager>().gameOver.increaseRate;
         }
 
         private void Update()
